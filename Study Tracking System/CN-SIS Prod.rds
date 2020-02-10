@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="CN-SIS Prod">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=sqlcust2.campusnet.local;Initial Catalog=live_309</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>359c13ea-d5f7-4e2e-871c-a3d18682cb62</DataSourceID>
+</RptDataSource>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="CN-SIS Train">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=sqlcust4.campusnet.local;Initial Catalog=train_309</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>bd4ded00-81f5-40ba-b850-d5f4d97835e2</DataSourceID>
+</RptDataSource>

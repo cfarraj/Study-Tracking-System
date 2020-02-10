@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description />
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>CN-SIS Prod</DataSourceReference>
+      <CommandText>SELECT ss.FullName as FullName, ss.LastName as Last, ss.FirstName as First, ss.NickName as Nick, ss.Phone as Phone, ss.DOB as DOB, ss.email as email, ss.SySchoolStatusID as syssid, ss.AdProgramID as ProgId, ss.StartDate as Start, ss.StuNum as StuNum, ss.AmExtraCurrID ECID, ss.Active as ActiveFlag, ss.SyStudentId as SyStudentId, ss.CumGPA as GPA, ss.CurrentLDA as LDA, ss.MobileNumber as Mobile, ecd.Descrip as ExCur, ec.amExtraCurrID as ExCurID, ec.PrimaryExtraCurr as PrimaryExCurFlag, syss.Descrip as SSDescrip, sys.Category as Cat, sys.Descrip as CatDescrip
+  FROM syStudent as ss 
+  join AmProspectExtraCurr as ec on ss.SyStudentID = ec.SyStudentID
+  join SySchoolStatus as syss on ss.sySchoolStatusID = syss.SySchoolStatusID
+  join SyStatus as sys on syss.SyStatusID = sys.SyStatusID
+  join AmExtraCurr as ecd on ec.AmExtraCurrId = ecd.AmExtraCurrID
+  where sys.Category='A' and ExCur = (@Activity)
+  order by ec.amExtraCurrID, ss.FullName</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="FullName">
+        <DataField>FullName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Last">
+        <DataField>Last</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="First">
+        <DataField>First</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Nick">
+        <DataField>Nick</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Phone">
+        <DataField>Phone</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="DOB">
+        <DataField>DOB</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="email">
+        <DataField>email</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="syssid">
+        <DataField>syssid</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="ProgId">
+        <DataField>ProgId</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Start">
+        <DataField>Start</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="ECID">
+        <DataField>ECID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="ActiveFlag">
+        <DataField>ActiveFlag</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="StuNum">
+        <DataField>StuNum</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="GPA">
+        <DataField>GPA</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="SyStudentId">
+        <DataField>SyStudentId</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="LDA">
+        <DataField>LDA</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Mobile">
+        <DataField>Mobile</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ExCur">
+        <DataField>ExCur</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ExCurID">
+        <DataField>ExCurID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryExCurFlag">
+        <DataField>PrimaryExCurFlag</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="SSDescrip">
+        <DataField>SSDescrip</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Cat">
+        <DataField>Cat</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CatDescrip">
+        <DataField>CatDescrip</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

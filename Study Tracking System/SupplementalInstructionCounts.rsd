@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>CN-SIS Prod</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@FromDate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+        </DataSetParameter>
+        <DataSetParameter Name="@ToDate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT coursedescrip , StudentName , ExtraCurrName, count(*) as Sessions FROM [live_309].[mu].[StudyTracking] where studytype='Supplemental Instruction' and (starttime &gt;= (@FromDate) and starttime &lt;= CONVERT(DATE, DATEADD(DD,+1,(@ToDate)))) Group by coursedescrip , StudentName, ExtraCurrName order by coursedescrip , StudentName, ExtraCurrName</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="coursedescrip">
+        <DataField>coursedescrip</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="StudentName">
+        <DataField>StudentName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ExtraCurrName">
+        <DataField>ExtraCurrName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Sessions">
+        <DataField>Sessions</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
