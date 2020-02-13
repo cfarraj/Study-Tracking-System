@@ -11,29 +11,46 @@
   </DataSources>
   <DataSets>
     <DataSet Name="SupplementalInstruction">
-      <SharedDataSet>
-        <SharedDataSetReference>Study Tracking Data</SharedDataSetReference>
-      </SharedDataSet>
+      <Query>
+        <DataSourceName>Prod</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@FromDate">
+            <Value>=Parameters!FromDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ToDate">
+            <Value>=Parameters!ToDate.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT * FROM [mu].[StudyTracking] where StudyType = 'Supplemental Instruction' and (starttime &gt;= (@FromDate) and starttime &lt;= CONVERT(DATE, DATEADD(DD,+1,(@ToDate)))) order by starttime</CommandText>
+      </Query>
       <Fields>
         <Field Name="TrackingId">
           <DataField>TrackingId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="StudyType">
-          <DataField>StudyType</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="SyStudentId">
           <DataField>SyStudentId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="StartTime">
-          <DataField>StartTime</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
         <Field Name="StudentName">
           <DataField>StudentName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StuNum">
+          <DataField>StuNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StudyType">
+          <DataField>StudyType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IsActive">
+          <DataField>IsActive</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="StartTime">
+          <DataField>StartTime</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="EndTime">
           <DataField>EndTime</DataField>
@@ -43,10 +60,6 @@
           <DataField>Duration</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="StuNum">
-          <DataField>StuNum</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="ProctorId">
           <DataField>ProctorId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -54,10 +67,6 @@
         <Field Name="ProctorName">
           <DataField>ProctorName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="IsActive">
-          <DataField>IsActive</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
         <Field Name="DateAdded">
           <DataField>DateAdded</DataField>
@@ -93,6 +102,69 @@
           </FilterValues>
         </Filter>
       </Filters>
+    </DataSet>
+    <DataSet Name="FromDate">
+      <SharedDataSet>
+        <SharedDataSetReference>Unique Date Only</SharedDataSetReference>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Sort">
+          <DataField>Sort</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!Sort.Value</FilterExpression>
+          <Operator>BottomN</Operator>
+          <FilterValues>
+            <FilterValue>1</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
+    </DataSet>
+    <DataSet Name="ToDate">
+      <SharedDataSet>
+        <SharedDataSetReference>Unique Date Only</SharedDataSetReference>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Sort">
+          <DataField>Sort</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Filters>
+        <Filter>
+          <FilterExpression>=Fields!Sort.Value</FilterExpression>
+          <Operator>TopN</Operator>
+          <FilterValues>
+            <FilterValue>1</FilterValue>
+          </FilterValues>
+        </Filter>
+      </Filters>
+    </DataSet>
+    <DataSet Name="Dates">
+      <SharedDataSet>
+        <SharedDataSetReference>Unique Date Only</SharedDataSetReference>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Sort">
+          <DataField>Sort</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
     </DataSet>
   </DataSets>
   <ReportSections>
@@ -670,10 +742,58 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="FromDate">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>FromDate</DataSetName>
+          <ValueField>Date</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>FromDate</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Dates</DataSetName>
+          <ValueField>Date</ValueField>
+          <LabelField>Date</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="ToDate">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>ToDate</DataSetName>
+          <ValueField>Date</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>ToDate</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Dates</DataSetName>
+          <ValueField>Date</ValueField>
+          <LabelField>Date</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>FromDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>ToDate</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>

@@ -3,7 +3,7 @@
   <DataSet Name="DataSet1">
     <Query>
       <DataSourceReference>CN-SIS Prod</DataSourceReference>
-      <CommandText>select distinct StudentName as Student FROM [live_309].[mu].[StudyTracking] where starttime &gt;= DATEADD(day,-14,GETDATE()) order by StudentName</CommandText>
+      <CommandText>SELECT REPLACE(FullName,'''',' ') AS Student FROM [live_309].[dbo].[syStudent] where syschoolstatusid=13 order by Fullname</CommandText>
       <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
     </Query>
     <Fields>

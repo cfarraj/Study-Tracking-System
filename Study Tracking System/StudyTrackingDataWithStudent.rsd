@@ -11,7 +11,7 @@
           <rd:DbType>Object</rd:DbType>
         </DataSetParameter>
       </DataSetParameters>
-      <CommandText>select * from mu.studytracking where StudentName = @Student and starttime &gt;= DATEADD(day,-14,GETDATE()) order by starttime</CommandText>
+      <CommandText>select * from mu.studytracking where UPPER(StudentName) = @Student and starttime &gt;= DATEADD(day,-14,GETDATE()) order by starttime</CommandText>
     </Query>
     <Fields>
       <Field Name="TrackingId">

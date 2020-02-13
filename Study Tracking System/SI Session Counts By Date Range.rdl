@@ -341,6 +341,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -428,14 +429,14 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>SIData</DataSetName>
-            <Top>0.43in</Top>
+            <Top>0.64875in</Top>
             <Height>0.64in</Height>
             <Width>5.28125in</Width>
             <ZIndex>1</ZIndex>
             <Style />
           </Tablix>
         </ReportItems>
-        <Height>1.07in</Height>
+        <Height>1.54917in</Height>
         <Style />
       </Body>
       <Width>7.03125in</Width>

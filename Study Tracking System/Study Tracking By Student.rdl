@@ -92,12 +92,14 @@
       </Fields>
     </DataSet>
     <DataSet Name="UniqueStudent">
-      <SharedDataSet>
-        <SharedDataSetReference>UniqueStudent</SharedDataSetReference>
-      </SharedDataSet>
+      <Query>
+        <DataSourceName>Prod</DataSourceName>
+        <CommandText>Select Upper(Concat(Replace(RTrim(LastName), '''',''), ', ', Replace(RTrim(FirstName), '''', ''))) as FullName from systudent where syschoolstatusid = 13  	Order by LastName</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
       <Fields>
-        <Field Name="Student">
-          <DataField>Student</DataField>
+        <Field Name="FullName">
+          <DataField>FullName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -800,7 +802,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Note: This report presents Study Tracking for the last 14 days.  Study Tracking reporting may vary by Activity if the Student had an Activity added or removed during the reporting period.</Value>
+                      <Value>Note: This report presents Study Tracking activity for the last 14 days for each student.  If there is no data reflected on the report, it is because there was no time logged during the period.  Also, Study Tracking reporting may vary by Activity if the Student had an Activity added or removed during the reporting period.</Value>
                       <Style>
                         <FontSize>12pt</FontSize>
                       </Style>
@@ -812,8 +814,67 @@
               <rd:DefaultName>Textbox79</rd:DefaultName>
               <Top>0.81473in</Top>
               <Height>0.71999in</Height>
-              <Width>7.78771in</Width>
+              <Width>8.51688in</Width>
               <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox2">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Parameters!Student.Value</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.29167in</Top>
+              <Left>6.1059in</Left>
+              <Height>0.25in</Height>
+              <Width>2.41098in</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox3">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>This report is for:</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Left>6.09202in</Left>
+              <Height>0.25in</Height>
+              <Width>2.41098in</Width>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -849,15 +910,15 @@
       <DefaultValue>
         <DataSetReference>
           <DataSetName>UniqueStudent</DataSetName>
-          <ValueField>Student</ValueField>
+          <ValueField>FullName</ValueField>
         </DataSetReference>
       </DefaultValue>
       <Prompt>Student</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>UniqueStudent</DataSetName>
-          <ValueField>Student</ValueField>
-          <LabelField>Student</LabelField>
+          <ValueField>FullName</ValueField>
+          <LabelField>FullName</LabelField>
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
